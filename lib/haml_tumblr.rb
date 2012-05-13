@@ -1,7 +1,7 @@
 require 'sass'
 
 def render( partial )
-  Haml::Engine.new(File.read "partials/_#{partial.to_s}.haml" ).render self
+  haml_concat Haml::Engine.new(File.read "partials/_#{partial.to_s}.haml" ).render(self)
 end
   
 def tab
