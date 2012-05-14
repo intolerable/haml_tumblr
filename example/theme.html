@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      {Title}
+    </title>
+    <link href='{Favicon}' rel='shortcut icon' />
+    {block:Description}
+      <meta content='{MetaDescription}' name='description' />
+    {/block:Description}
+  </head>
+  <body>
+    <h1>
+      {Title}
+    </h1>
+    {block:Description}
+      <p id='description'>
+        {Description}
+      </p>
+    {/block:Description}
+    <ol id='posts'>
+      {block:Posts}
+        {block:Text}
+          <li class='post text'>
+            {block:Title}
+              <h3>
+                <a href='{Permalink}'>
+                  {Title}
+                </a>
+              </h3>
+              {Body}
+            {/block:Title}
+          </li>
+        {/block:Text}
+        {block:Photo}
+          <li class='post photo'>
+            <img alt='{PhotoAlt}' src='{PhotoUrl-500}' />
+            {block:Caption}
+              <div class='caption'>
+                {Caption}
+              </div>
+            {/block:Caption}
+          </li>
+        {/block:Photo}
+        {block:Photoset}
+          <li class='post photoset'>
+            {Photoset-500}
+            {block:Caption}
+              <div class='caption'>
+                {Caption}
+              </div>
+            {/block:Caption}
+          </li>
+        {/block:Photoset}
+        {block:Quote}
+          <li class='post quote'>
+            "{Quote}"
+            {block:Source}
+              <div class='source'>
+                {Source}
+              </div>
+            {/block:Source}
+          </li>
+        {/block:Quote}
+        {block:Link}
+          <li class='post link'>
+            <a class='link' href='{Url}'>
+              {Name}
+            </a>
+          </li>
+        {/block:Link}
+        {block:Chat}
+          <li class='post chat'>
+            {block:Title}
+              <h3>
+                <a href='{Permalink}'>
+                  {Title}
+                </a>
+              </h3>
+            {/block:Title}
+            <ul class='chat'>
+              {block:Lines}
+                <li class='{Alt} user_{User}'>
+                  {block:Label}
+                    <span class='label'>
+                      {Label}
+                    </span>
+                  {/block:Label}
+                </li>
+              {/block:Lines}
+            </ul>
+          </li>
+        {/block:Chat}
+        {block:Video}
+          <li class='post video'>
+            {Video-500}
+            {block:Caption}
+              <div class='caption'>
+                {Caption}
+              </div>
+            {/block:Caption}
+          </li>
+        {/block:Video}
+        {block:Audio}
+          <li class='post audio'>
+            {AudioPlayerBlack}
+            {block:Caption}
+              <div class='caption'>
+                {Caption}
+              </div>
+            {/block:Caption}
+          </li>
+        {/block:Audio}
+      {/block:Posts}
+    </ol>
+    <p class='footer'>
+      {block:PreviousPage}
+        <a href='{PreviousPage}'>
+          « Previous
+        </a>
+      {/block:PreviousPage}
+      {block:NextPage}
+        <a href='{NextPage}'>
+          Next »
+        </a>
+      {/block:NextPage}
+      <a href='/archive'>
+        Archive
+      </a>
+    </p>
+  </body>
+</html>

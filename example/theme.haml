@@ -1,0 +1,83 @@
+- require 'haml_tumblr'
+
+!!! 5
+%html
+  %head
+    %title
+      - tumblr_tag :title
+    %link{ :rel => 'shortcut icon',
+      :href => tumblr_link_tag(:favicon) }
+    - tumblr_tag :description do
+      %meta{ :name => 'description',
+        :content => tumblr_link_tag(:meta_description) }
+  %body
+    %h1
+      - tumblr_tag :title
+    - tumblr_tag :description do
+      %p#description
+        - tumblr_tag :description
+    %ol#posts
+      - tumblr_tag :posts do
+        - tumblr_tag :text do
+          %li.post.text
+            - tumblr_tag :title do
+              %h3
+                %a{ :href => tumblr_link_tag(:permalink) }
+                  - tumblr_tag :title              
+              - tumblr_tag :body
+        - tumblr_tag :photo do
+          %li.post.photo
+            %img{ :src => tumblr_link_tag("photo_url-500"),
+              :alt => tumblr_link_tag(:photo_alt) }
+            - tumblr_tag :caption do
+              .caption
+                - tumblr_tag :caption
+        - tumblr_tag :photoset do
+          %li.post.photoset
+            - tumblr_tag "photoset-500"
+            - tumblr_tag :caption do
+              .caption
+                - tumblr_tag :caption
+        - tumblr_tag :quote do
+          %li.post.quote
+            "#{tumblr_link_tag :quote}"
+            - tumblr_tag :source do
+              .source
+                - tumblr_tag :source
+        - tumblr_tag :link do
+          %li.post.link
+            %a{ :href => tumblr_link_tag(:url), :class => 'link' }
+              - tumblr_tag :name
+        - tumblr_tag :chat do
+          %li.post.chat
+            - tumblr_tag :title do
+              %h3
+                %a{ :href => tumblr_link_tag(:permalink) }
+                  - tumblr_tag :title
+            %ul.chat
+              - tumblr_tag :lines do
+                %li{ :class => "#{tumblr_link_tag :alt } user_#{tumblr_link_tag :user }" }
+                  - tumblr_tag :label do
+                    %span.label
+                      - tumblr_tag :label
+        - tumblr_tag :video do
+          %li.post.video
+            - tumblr_tag 'video-500'
+            - tumblr_tag :caption do
+              .caption
+                - tumblr_tag :caption
+        - tumblr_tag :audio do
+          %li.post.audio
+            - tumblr_tag :audio_player_black
+            - tumblr_tag :caption do
+              .caption
+                - tumblr_tag :caption
+    %p.footer
+      - tumblr_tag :previous_page do
+        %a{ :href => tumblr_link_tag(:previous_page) }
+          « Previous
+      - tumblr_tag :next_page do
+        %a{ :href => tumblr_link_tag(:next_page) }
+          Next »
+      %a{ :href => '/archive' }
+        Archive
