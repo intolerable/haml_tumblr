@@ -9,6 +9,7 @@ Your theme folder should look something like this:
     tumblr_theme/
       theme.haml
       style.sass or style.scss
+      scripts.coffee
       partials/
         _posts.haml
         _posts.scss
@@ -32,3 +33,6 @@ Add `- require 'haml_tumblr` to the top of your main template ( `theme.haml` in 
     
     - sass_tag :style
     # same as 'sass_tag', but for scss stylesheets
+    
+    - coffee_tag :scripts
+    # pretty much the previous two with coffescript
