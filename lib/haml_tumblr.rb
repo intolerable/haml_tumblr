@@ -1,4 +1,5 @@
 require 'sass'
+require 'coffee-script'
 
 def render( partial )
   haml_concat Haml::Engine.new(File.read "partials/_#{partial.to_s}.haml" ).render(self)
