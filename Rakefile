@@ -2,19 +2,17 @@ require "rubygems"
 require "rubygems/package_task"
 require "rdoc/task"
 
-task :default => :package do
-  puts "Don't forget to write some tests!"
-end
+task :default => :package
 
 spec = Gem::Specification.new do |s|
 
   # Change these as appropriate
   s.name              = "haml_tumblr"
-  s.version           = "0.1.0"
+  s.version           = "1.0.0"
   s.summary           = "library for making Tumblr themes nicer to write in Haml"
   s.author            = "Fraser Murray"
   s.email             = "fraser.m.murray@gmail.com"
-  s.homepage          = "http://github.com/intolerable/haml-tumblr"
+  s.homepage          = "http://github.com/intolerable/haml_tumblr"
 
   s.has_rdoc          = true
   # You should probably have a README of some kind. Change the filename

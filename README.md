@@ -39,3 +39,5 @@ Add `- require 'haml_tumblr` to the top of your main template ( `theme.haml` in 
     
     - jquery_tag
     # adds jquery to the template. nothing more, nothing less.
+
+Fire up `rake` to get a `gemspec`, which can then be `gem build` and `gem install`'d. Alternatively, just do `gem install haml_tumblr`.
