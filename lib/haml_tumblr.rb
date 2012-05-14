@@ -33,3 +33,7 @@ def tumblr_tag( tag )
     haml_concat "{#{tag.to_s.capitalize}}"
   end
 end
+
+def tumblr_link_tag( tag )
+  "{#{tag.to_s.capitalize}}"
+end
