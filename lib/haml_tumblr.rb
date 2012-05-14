@@ -17,6 +17,12 @@ def coffee_tag( coffee_file )
   end
 end
 
+def jquery_tag( version = "1.7.2" )
+  haml_tag :script,
+    :type => 'text/javascript',
+    :src => 'http://ajax.googleapis.com/ajax/libs/jquery/#{version}/jquery.min.js'
+end
+
 def sass_tag( sass_file )
   haml_tag :style, :type => 'text/css' do
     haml_concat Sass::Engine.new(File.read "#{sass_file.to_s}.sass").render
