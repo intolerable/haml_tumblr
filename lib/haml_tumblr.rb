@@ -1,6 +1,3 @@
-require 'sass'
-require 'coffee-script'
-
 def render( partial )
   haml_concat Haml::Engine.new(File.read "partials/_#{partial.to_s}.haml" ).render(self)
 end
@@ -12,6 +9,7 @@ def tab
 end
 
 def coffee_tag( coffee_file )
+  require 'coffee-script'
   haml_tag :script, :type => 'text/javascript' do
     haml_concat CoffeeScript.compile File.read "#{coffee_file.to_s}.coffee"
   end
@@ -24,12 +22,14 @@ def jquery_tag( version = "1.7.2" )
 end
 
 def sass_tag( sass_file )
+  require 'sass'
   haml_tag :style, :type => 'text/css' do
     haml_concat Sass::Engine.new(File.read "#{sass_file.to_s}.sass").render
   end
 end
 
 def scss_tag( scss_file )
+  require 'sass'
   haml_tag :style, :type => 'text/css' do
     haml_concat Sass::Engine.new(File.read "#{scss_file.to_s}.scss").render
   end
