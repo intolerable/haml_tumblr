@@ -1,4 +1,4 @@
-`haml_tumblr`
+`haml_tumblr` => `gem install haml_tumblr`
 ===
 
 a lovely library for writing tumblr themes with haml
