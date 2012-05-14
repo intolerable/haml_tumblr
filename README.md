@@ -35,4 +35,7 @@ Add `- require 'haml_tumblr` to the top of your main template ( `theme.haml` in 
     # same as 'sass_tag', but for scss stylesheets
     
     - coffee_tag :scripts
-    # pretty much the previous two with coffescript
+    # pretty much the previous two with coffeescript
+    
+    - jquery_tag
+    # adds jquery to the template. nothing more, nothing less.
