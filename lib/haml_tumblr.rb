@@ -1,68 +1,25 @@
 class Tumblr
-  include Haml::Helpers
-  def self.render( partial )
-    haml_concat Haml::Engine.new(File.read "partials/_#{partial.to_s}.haml" ).render(self)
+
+  def self.tag( symbol )
+    if block_given?
+      "{block:#{process symbol}}" + 
+      tab { yield } + 
+      "{/block:#{process symbol}}"
+    else
+      "{#{process symbol}}"
+    end
   end
+  
+  # private
   
   def self.tab
-    tab_up
-      yield
-    tab_down
-  end
-
-  def self.coffee_tag( coffee_file )
-    require 'coffee-script'
-    haml_tag :script, :type => 'text/javascript' do
-      haml_concat CoffeeScript.compile File.read "#{coffee_file.to_s}.coffee"
-    end
-  end
-
-  def self.jquery_tag( version = "1.7.2" )
-    haml_tag :script,
-      :type => 'text/javascript',
-      :src => 'http://ajax.googleapis.com/ajax/libs/jquery/#{version}/jquery.min.js'
-  end
-
-  def self.sass_tag( sass_file )
-    require 'sass'
-    haml_tag :style, :type => 'text/css' do
-      haml_concat Sass::Engine.new(File.read "#{sass_file.to_s}.sass").render
-    end
-  end
-
-  def scss_tag( scss_file )
-    require 'sass'
-    haml_tag :style, :type => 'text/css' do
-      haml_concat Sass::Engine.new(File.read "#{scss_file.to_s}.scss").render
-    end
-  end
-
-  def self.tag( tag )
-    if block_given?
-      haml_concat "{block:#{process tag}}"
-      tab do
-        yield
-      end
-      haml_concat "{/block:#{process tag}}"
-    else
-      haml_concat "{#{process tag}}"
-    end
-  end
-
-  def self.link_tag( tag )
-    "{#{process tag}}"
-  end
-
-  def self.link_to( text, address )
-    haml_tag :a, :href => address do
-      haml_concat text
-    end
-  end
-
-  private
-
-  def self.process( tag )
-    tag.to_s.split("_").map(&:capitalize).join
+    yield.each_line.map { |line|
+      "  " + line
+    }.join("\n")
   end
   
+  def self.process( symbol )
+    symbol.to_s.split("_").map(&:capitalize).join
+  end
+
 end
