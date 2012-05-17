@@ -24,14 +24,16 @@ end
 def sass_tag( sass_file )
   require 'sass'
   haml_tag :style, :type => 'text/css' do
-    haml_concat Sass::Engine.new(File.read "#{sass_file.to_s}.sass").render
+    haml_concat Sass::Engine.new(render_defaults(:sass) +
+      (File.read "#{sass_file.to_s}.sass")).render
   end
 end
 
 def scss_tag( scss_file )
   require 'sass'
   haml_tag :style, :type => 'text/css' do
-    haml_concat Sass::Engine.new(File.read "#{scss_file.to_s}.scss").render
+    haml_concat Sass::Engine.new(render_defaults(:scss) +
+      (File.read "#{scss_file.to_s}.scss")).render
   end
 end
 
@@ -57,7 +59,32 @@ def link_to( text, address )
   end
 end
 
-private
+def render_defaults( format = :sass )
+  @variables ||= {:color => {}, :font => {}}
+  [:font, :color].map { |type|
+    @variables[type].each_pair.map { |key, value|
+      "$#{key}: unquote( \"{#{type}:#{process key}}\" )"
+    }
+  }.flatten.map { |string|
+    format == :scss ? string + ";" : string
+    }.join("\n") + "\n"
+end
+
+def default_color( hash )
+  raise TypeError unless hash.length == 1
+  @variables ||= {:color => {}, :font => {}}
+  key, val = *hash.first
+  @variables[:color][key.to_s] = val
+  haml_tag :meta, :name => "color:#{process key}", :content => val
+end
+
+def default_font( hash )
+  raise TypeError unless hash.length == 1
+  @variables ||= {:color => {}, :font => {}}
+  key, val = *hash.first
+  @variables[:font][key.to_s] = val
+  haml_tag :meta, :name => "font:#{process key}", :content => val
+end
 
 def process( tag )
   tag.to_s.split("_").map(&:capitalize).join
