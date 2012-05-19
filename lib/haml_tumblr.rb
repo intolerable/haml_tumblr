@@ -53,39 +53,41 @@ def tumblr_link_tag( tag )
   "{#{process tag}}"
 end
 
-def link_to( text, address )
-  haml_tag :a, :href => address do
-    haml_concat text
+  def link_to( text, address )
+    haml_tag :a, :href => address do
+      haml_concat text
+    end
   end
-end
 
-def render_defaults( format = :sass )
-  @variables ||= {:color => {}, :font => {}}
-  [:font, :color].map { |type|
-    @variables[type].each_pair.map { |key, value|
-      "$#{key}: unquote( \"{#{type}:#{process key}}\" )"
-    }
-  }.flatten.map { |string|
-    format == :scss ? string + ";" : string
-    }.join("\n") + "\n"
-end
+  def render_defaults( format = :sass )
+    @variables ||= {:color => {}, :font => {}}
+    [:font, :color].map { |type|
+      @variables[type].each_pair.map { |key, value|
+        "$#{key}: unquote( \"{#{type}:#{process key}}\" )"
+      }
+    }.flatten.map { |string|
+      format == :scss ? string + ";" : string
+      }.join("\n") + "\n"
+  end
 
-def default_color( hash )
-  raise TypeError unless hash.length == 1
-  @variables ||= {:color => {}, :font => {}}
-  key, val = *hash.first
-  @variables[:color][key.to_s] = val
-  haml_tag :meta, :name => "color:#{process key}", :content => val
-end
+  def default_color( hash )
+    raise TypeError unless hash.length == 1
+    @variables ||= {:color => {}, :font => {}}
+    key, val = *hash.first
+    @variables[:color][key.to_s] = val
+    haml_tag :meta, :name => "color:#{process key}", :content => val
+  end
 
-def default_font( hash )
-  raise TypeError unless hash.length == 1
-  @variables ||= {:color => {}, :font => {}}
-  key, val = *hash.first
-  @variables[:font][key.to_s] = val
-  haml_tag :meta, :name => "font:#{process key}", :content => val
-end
+  def default_font( hash )
+    raise TypeError unless hash.length == 1
+    @variables ||= {:color => {}, :font => {}}
+    key, val = *hash.first
+    @variables[:font][key.to_s] = val
+    haml_tag :meta, :name => "font:#{process key}", :content => val
+  end
 
-def process( tag )
-  tag.to_s.split("_").map(&:capitalize).join
+  def self.process( tag )
+    tag.to_s.split("_").map(&:capitalize).join
+  end
+  
 end
